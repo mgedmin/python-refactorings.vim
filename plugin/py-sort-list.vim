@@ -1,7 +1,7 @@
 " File: py-sort-list.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.3
-" Last Modified: 2019-05-09
+" Version: 0.4
+" Last Modified: 2019-10-30
 "
 " Overview
 " --------
@@ -12,10 +12,6 @@
 " cursor.
 "
 " All of the commands currently work only for single-line literals.
-"
-" Installation
-" ------------
-" Copy this file to the $HOME/.vim/plugin/ directory
 "
 " Example
 " -------
@@ -35,57 +31,6 @@
 "             [1, 5, 6, 9]
 "
 
-if !has("python") && !has("python3")
-    finish
-endif
-
-let s:python = has('python3') ? 'python3' : 'python'
-exec s:python "<<END"
-
-def SortPythonList():
-    import vim, ast
-    line = vim.current.line
-    indent = line[:-len(line.lstrip())]
-    try:
-        values = ast.literal_eval(line.strip())
-        if not isinstance(values, (list, tuple)):
-            raise SyntaxError
-    except SyntaxError:
-        print("Current line does not contain a valid Python list literal")
-        return
-    new_line = indent + repr(sorted(values))
-    vim.current.line = new_line
-
-def SortPythonDict():
-    import vim, ast
-    line = vim.current.line
-    indent = line[:-len(line.lstrip())]
-    try:
-        values = ast.literal_eval(line.strip())
-        if not isinstance(values, dict):
-            raise SyntaxError
-    except SyntaxError:
-        print("Current line does not contain a valid Python dict literal")
-        return
-    new_line = indent + repr(dict(sorted(values.items())))
-    vim.current.line = new_line
-
-def ReversePythonList():
-    import vim, ast
-    line = vim.current.line
-    indent = line[:-len(line.lstrip())]
-    try:
-        values = ast.literal_eval(line.strip())
-        if not isinstance(values, (list, tuple)):
-            raise SyntaxError
-    except SyntaxError:
-        print("Current line does not contain a valid Python list literal")
-        return
-    new_line = indent + repr(values[::-1])
-    vim.current.line = new_line
-
-END
-
-command! SortPythonList :exec s:python "SortPythonList()"
-command! SortPythonDict :exec s:python "SortPythonDict()"
-command! ReversePythonList :exec s:python "ReversePythonList()"
+command! -bar SortPythonList     call python_refactorings#sort_list()
+command! -bar SortPythonDict     call python_refactorings#sort_dict()
+command! -bar ReversePythonList  call python_refactorings#reverse_list()
