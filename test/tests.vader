@@ -34,6 +34,9 @@ Do (:SortPythonList):
   j
   :SortPythonList\<CR>
 
+Then (there should be no error message):
+  AssertEqual PythonOutput(), ""
+
 Expect python (the list to be sorted):
   def doctest_somefunc():
       """Test somefunc
