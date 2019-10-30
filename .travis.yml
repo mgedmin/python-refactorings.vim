@@ -1,0 +1,9 @@
+language: minimal
+
+dist: bionic
+
+install:
+  - git clone --depth=1 https://github.com/junegunn/vader.vim.git
+
+script:
+  - test/run

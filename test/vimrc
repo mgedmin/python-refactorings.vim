@@ -1,5 +1,5 @@
-filetype off
-set rtp+=~/.vim/bundle/vader.vim
+set rtp-=~/.vim
+set rtp-=~/.vim/after
+set rtp+=~/.vim/bundle/vader.vim    " manual test runs
+set rtp+=../vader.vim               " travis CI
 set rtp+=..
-filetype plugin indent on
-syntax enable

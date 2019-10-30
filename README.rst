@@ -5,7 +5,7 @@ Vim plugin that defines a few random commands to help me work with Python code.
 
 These are all massive hacks that were helpful to me at one time or another.
 
-Needs Vim built with Python support.
+Needs Vim 8.0.0251 or newer, built with Python support.
 
 
 Commands
