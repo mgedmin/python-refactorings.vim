@@ -97,6 +97,14 @@ I like vim-plug_::
 .. _vim-plug: https://github.com/junegunn/vim-plug
 
 
+Tests
+-----
+
+Install vader.vim_ and use ``:Vader test/*.vader`` to run the test suite.
+
+.. _vader.vim: https://github.com/junegunn/vader.vim
+
+
 Copyright
 ---------
 

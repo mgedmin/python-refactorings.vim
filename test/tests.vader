@@ -1,0 +1,247 @@
+#
+# Test scaffolding
+#
+
+Before (capture Python script output):
+  pyx import sys, io
+  pyx orig_stdout = sys.stdout
+  pyx sys.stdout = io.StringIO()  # XXX this probably only works on Python 3
+  fun! PythonOutput()
+    return pyxeval('sys.stdout.getvalue().rstrip()')
+  endf
+
+After (stop capturing Python script output):
+  pyx sys.stdout = orig_stdout
+  pyx del orig_stdout
+  delfun! PythonOutput
+
+
+#
+# :SortPythonList
+#
+
+Given python (a Python list literal on a single line):
+  def doctest_somefunc():
+      """Test somefunc
+
+          >>> somefunc(bla bla bla)
+          [5, 1, 6, 9]
+
+      """
+
+Do (:SortPythonList):
+  />>>\<CR>
+  j
+  :SortPythonList\<CR>
+
+Expect python (the list to be sorted):
+  def doctest_somefunc():
+      """Test somefunc
+
+          >>> somefunc(bla bla bla)
+          [1, 5, 6, 9]
+
+      """
+
+Do (move the cursor elsewhere and try :SortPythonList):
+  gg
+  :SortPythonList\<CR>
+
+Then (there should be an error message):
+  AssertEqual PythonOutput(), "Current line does not contain a valid Python list literal"
+
+Expect python (no change to the buffer):
+  def doctest_somefunc():
+      """Test somefunc
+
+          >>> somefunc(bla bla bla)
+          [5, 1, 6, 9]
+
+      """
+
+#
+# :ReversePythonList
+#
+
+Given python (a Python list literal on a single line):
+  def doctest_somefunc():
+      """Test somefunc
+
+          >>> somefunc(bla bla bla)
+          [5, 1, 6, 9]
+
+      """
+
+Do (:ReversePythonList):
+  />>>\<CR>
+  j
+  :ReversePythonList\<CR>
+
+Expect python (the list to be reversed):
+  def doctest_somefunc():
+      """Test somefunc
+
+          >>> somefunc(bla bla bla)
+          [9, 6, 1, 5]
+
+      """
+
+Do (move the cursor elsewhere and try :ReversePythonList):
+  gg
+  :ReversePythonList\<CR>
+
+Then (there should be an error message):
+  AssertEqual PythonOutput(), "Current line does not contain a valid Python list literal"
+
+Expect python (no change to the buffer):
+  def doctest_somefunc():
+      """Test somefunc
+
+          >>> somefunc(bla bla bla)
+          [5, 1, 6, 9]
+
+      """
+
+#
+# :SortPythonDict
+#
+
+Given python (a Python dict literal on a single line):
+  def doctest_somefunc():
+      """Test somefunc
+
+          >>> somefunc(bla bla bla)
+          {5: ['x'], 1: ['y'], 6: [], 9: None}
+
+      """
+
+Do (:SortPythonDict):
+  />>>\<CR>
+  j
+  :SortPythonDict\<CR>
+
+Expect python (the list to be sorted):
+  def doctest_somefunc():
+      """Test somefunc
+
+          >>> somefunc(bla bla bla)
+          {1: ['y'], 5: ['x'], 6: [], 9: None}
+
+      """
+
+Do (move the cursor elsewhere and try :SortPythonDict):
+  gg
+  :SortPythonDict\<CR>
+
+Then (there should be an error message):
+  AssertEqual PythonOutput(), "Current line does not contain a valid Python dict literal"
+
+Expect python (no change to the buffer):
+  def doctest_somefunc():
+      """Test somefunc
+
+          >>> somefunc(bla bla bla)
+          {5: ['x'], 1: ['y'], 6: [], 9: None}
+
+      """
+
+
+#
+# :SwapAssignment
+#
+
+Given python (a Python assignment statement):
+  class MyTestCase(unittest.TestCase):
+      def setUp(self):
+          self.old_listdir = os.listdir
+
+      def tearDown(self):
+
+Do (:SwapAssignment):
+  /old_listdir\<CR>
+  yy
+  /tearDown\<CR>
+  p
+  :SwapAssignment\<CR>
+
+
+Expect python (the assignment to be inverted):
+  class MyTestCase(unittest.TestCase):
+      def setUp(self):
+          self.old_listdir = os.listdir
+
+      def tearDown(self):
+          os.listdir = self.old_listdir
+
+Given python (several Python assignment statements):
+  class MyTestCase(unittest.TestCase):
+      def setUp(self):
+          self.old_listdir = os.listdir
+          self.old_chdir = os.chdir
+          self.old_exists = os.path.exists
+
+      def tearDown(self):
+
+Do (:'<,'>SwapAssignment):
+  /old_listdir\<CR>
+  V}ky
+  /tearDown\<CR>
+  p
+  V}
+  :SwapAssignment\<CR>
+
+Expect python (the assignments to be inverted):
+  class MyTestCase(unittest.TestCase):
+      def setUp(self):
+          self.old_listdir = os.listdir
+          self.old_chdir = os.chdir
+          self.old_exists = os.path.exists
+
+      def tearDown(self):
+          os.listdir = self.old_listdir
+          os.chdir = self.old_chdir
+          os.path.exists = self.old_exists
+
+
+#
+# :SwapTupleMembers
+#
+
+Given python (a Python 2-tuple literal on a single line):
+  (1, 'hello'),
+
+Do (:SwapTupleMembers):
+  :SwapTupleMembers\<CR>
+
+Expect python (the tuple members to be swapped):
+  ('hello', 1),
+
+Given python (several Python 2-tuple literals, one per line):
+  (1, 'hello'),
+  (2, 'goodbye'),
+
+Do (:'<,'>SwapTupleMembers):
+  VG
+  :SwapTupleMembers\<CR>
+
+Expect python (the tuple members to be swapped):
+  ('hello', 1),
+  ('goodbye', 2),
+
+
+#
+# :InlineValue
+#
+
+Given python (a Python code snippet):
+  x = compute_x(y, z)
+  do_something_with(a, x, y)
+
+Do (:InlineValue):
+  /do_something_with\<CR>
+  fx
+  :InlineValue\<CR>
+
+Expect python (the name to be replaced with the expression assigned to it):
+  x = compute_x(y, z)
+  do_something_with(a, compute_x(y, z), y)
