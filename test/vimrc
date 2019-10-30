@@ -3,3 +3,12 @@ set rtp-=~/.vim/after
 set rtp+=~/.vim/bundle/vader.vim    " manual test runs
 set rtp+=../vader.vim               " travis CI
 set rtp+=..
+
+fun s:DebugHeader()
+  redir >> /dev/stdout
+  scriptnames
+  echo ""
+  echo ""
+  redir END
+endf
+com DebugHeader call s:DebugHeader()
