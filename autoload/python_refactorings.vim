@@ -32,3 +32,17 @@ function python_refactorings#inline_value()
     exec 'normal ciw' . value . "\<ESC>"
   endif
 endf
+
+function python_refactorings#fix_assertions() range
+  exec a:firstline.','.a:lastline.'s/self[.]assert\(\|Almost\|Not\|NotAlmost\)Equals(/self.assert\1Equal(/gce'
+  exec a:firstline.','.a:lastline.'s/self[.]assert_(\(.*\) in \(.*\))/self.assertIn(\1, \2)/gce'
+  exec a:firstline.','.a:lastline.'s/self[.]assert_(\(.*\) is None)/self.assertIsNone(\1)/gce'
+  exec a:firstline.','.a:lastline.'s/self[.]assert_(\(.*\) is not None)/self.assertIsNotNone(\1)/gce'
+  exec a:firstline.','.a:lastline.'s/self[.]assert_(isinstance(\(.*\), \(.*\)))/self.assertIsInstance(\1, \2)/gce'
+  exec a:firstline.','.a:lastline.'s/self[.]assert_(isinstance(\(.*\), \(.*\)))/self.assertIsInstance(\1, \2)/gce'
+  exec a:firstline.','.a:lastline.'s/self[.]assert_(not \(.*\))/self.assertFalse(\1)/gce'
+  exec a:firstline.','.a:lastline.'s/self[.]failIf(\(.*\))/self.assertFalse(\1)/gce'
+  exec a:firstline.','.a:lastline.'s/self[.]assert_(\(.*\))/self.assertTrue(\1)/gce'
+  exec a:firstline.','.a:lastline.'s/self[.]failUnless(\(.*\))/self.assertTrue(\1)/gce'
+  noh
+endf
