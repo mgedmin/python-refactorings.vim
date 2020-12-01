@@ -90,6 +90,23 @@ Commands
         x = compute_the_x(a, b, c)
         print(compute_the_x(a, b, c))
 
+``:FixTestAssertions``
+
+    Replaces deprecated old-style unittest assertion method calls with new
+    spellings, e.g. ::
+
+        self.assertEquals(a, b)
+        self.failUnless(x)
+        self.assert_(not y)
+        self.assert_(x in y)
+
+    will become ::
+
+        self.assertEqual(a, b)
+        self.assertTrue(x)
+        self.assertFalse(y)
+        self.assertIn(x, y)
+
 
 Installation
 ------------
