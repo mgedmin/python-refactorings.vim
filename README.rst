@@ -90,7 +90,7 @@ Commands
         x = compute_the_x(a, b, c)
         print(compute_the_x(a, b, c))
 
-``:FixTestAssertions``
+``:FixAssertions[!]``
 
     Replaces deprecated old-style unittest assertion method calls with new
     spellings, e.g. ::
@@ -106,6 +106,9 @@ Commands
         self.assertTrue(x)
         self.assertFalse(y)
         self.assertIn(x, y)
+
+    If you don't want to confirm each replacement, you can try your luck
+    with :FixAssertions! (but I wouldn't trust my regexes that much).
 
 
 Installation

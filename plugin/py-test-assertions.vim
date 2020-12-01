@@ -1,12 +1,14 @@
 " File: py-test-assertions.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.1
-" Last Modified: 2020-11-06
+" Version: 0.2
+" Last Modified: 2020-12-01
 "
 " Overview
 " --------
 " Defines a :FixAssertions command that does a series of search/replace to
 " change outdated unittest assertions to modern spellings.
+"
+" :FixAssertions! does the replacements without confirmation
 "
 " Example
 " -------
@@ -18,4 +20,4 @@
 "     self.assert_(not xxx) -> self.assertFalse(xxx)
 "
 
-command! -bar -range=% FixAssertions  <line1>,<line2>call python_refactorings#fix_assertions()
+command! -bar -bang -range=% FixAssertions  <line1>,<line2>call python_refactorings#fix_assertions(<bang>0)

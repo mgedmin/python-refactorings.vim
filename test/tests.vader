@@ -248,3 +248,27 @@ Do (:InlineValue):
 Expect python (the name to be replaced with the expression assigned to it):
   x = compute_x(y, z)
   do_something_with(a, compute_x(y, z), y)
+
+
+#
+# :FixTestAsserions
+#
+
+Given python (a Python code snippet):
+  self.assertEquals(a, b)
+  self.failUnless(x)
+  self.failIf(y)
+  self.assert_(u)
+  self.assert_(not v)
+  self.assert_(w in l)
+
+Do (:FixAsserions!):
+  :FixAssertions!\<CR>
+
+Expect python (the assertions to be rewritten to):
+  self.assertEqual(a, b)
+  self.assertTrue(x)
+  self.assertFalse(y)
+  self.assertTrue(u)
+  self.assertFalse(v)
+  self.assertIn(w, l)
