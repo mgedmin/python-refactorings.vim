@@ -1,8 +1,8 @@
 Overview
 --------
 
-.. image:: https://travis-ci.org/mgedmin/python-refactorings.vim.svg?branch=master
-    :target: https://travis-ci.org/mgedmin/python-refactorings.vim
+.. image:: https://github.com/mgedmin/python-refactorings.vim/workflows/build/badge.svg?branch=master
+    :target: https://github.com/mgedmin/python-refactorings.vim/actions
 
 
 Vim plugin that defines a few random commands to help me work with Python code.
