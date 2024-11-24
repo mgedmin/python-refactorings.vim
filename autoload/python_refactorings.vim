@@ -33,6 +33,12 @@ function python_refactorings#inline_value()
   endif
 endf
 
+function python_refactorings#attribute_to_property() range
+  exec a:firstline.','.a:lastline.'s/\(^[ \t]*\)\(\I\i*\): \([^=]*\)$/\r\1@property\r\1def \2(self) -> \3:\r\1    .../'
+  noh
+endf
+
+
 function python_refactorings#fix_assertions(skip_confirmation) range
   let flags = a:skip_confirmation ? 'ge' : 'gce'
   exec a:firstline.','.a:lastline.'s/self[.]assert\(\|Almost\|Not\|NotAlmost\)Equals(/self.assert\1Equal(/'.flags

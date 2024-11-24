@@ -1,7 +1,7 @@
 set rtp-=~/.vim
 set rtp-=~/.vim/after
 set rtp+=~/.vim/bundle/vader.vim    " manual test runs
-set rtp+=../vader.vim               " travis CI
+set rtp+=../vader.vim               " CI
 set rtp+=..
 
 fun s:DebugHeader()

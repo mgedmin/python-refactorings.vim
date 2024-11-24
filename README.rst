@@ -90,6 +90,27 @@ Commands
         x = compute_the_x(a, b, c)
         print(compute_the_x(a, b, c))
 
+
+``:AttributeToProperty``
+
+    Replaces a variable type annotation with a property declaration, e.g. ::
+
+        class Thing:
+            name: str
+            color: str
+
+    becomes ::
+
+        class Thing:
+
+            @property
+            def name(self) -> str:
+                ...
+
+            @property
+            def color(self) -> str:
+                ...
+
 ``:FixAssertions[!]``
 
     Replaces deprecated old-style unittest assertion method calls with new

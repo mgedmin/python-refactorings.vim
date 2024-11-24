@@ -251,6 +251,32 @@ Expect python (the name to be replaced with the expression assigned to it):
 
 
 #
+# :AttributeToProperty
+#
+
+Given python (a Python code snippet):
+    class Thing:
+        name: str
+        color: str
+        size: int
+
+Do (:AttributeToProperty):
+  /name\<CR>
+  :.,+1AttributeToProperty\<CR>
+
+Expect python (the two attributes to be replaced with properties):
+    class Thing:
+
+        @property
+        def name(self) -> str:
+            ...
+
+        @property
+        def color(self) -> str:
+            ...
+        size: int
+
+#
 # :FixTestAsserions
 #
 
