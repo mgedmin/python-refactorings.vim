@@ -1,7 +1,7 @@
 " File: py-sort-list.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.4
-" Last Modified: 2019-10-30
+" Version: 0.5
+" Last Modified: 2025-07-30
 "
 " Overview
 " --------
@@ -11,7 +11,8 @@
 " Also defines a :SortPythonDict command that sorts a dict literal under
 " cursor.
 "
-" All of the commands currently work only for single-line literals.
+" All of the commands currently work only for single-line literals and accept
+" an optional trailing comma after the literal.
 "
 " Example
 " -------
