@@ -18,6 +18,11 @@ function python_refactorings#swap_assignment() range
   noh
 endf
 
+function python_refactorings#swap_comparison() range
+  exec a:firstline.','.a:lastline.'s/\(^[ \t>.]*\%(assert \+\)\)\(.*\)\( == \)\(.*\)$/\1\4\3\2/'
+  noh
+endf
+
 function python_refactorings#swap_tuple_members() range
   exec a:firstline.','.a:lastline.'s/\((\)\([^,)]*\)\(,\s*\)\(.*\)\()\)/\1\4\3\2\5/'
   noh

@@ -63,6 +63,20 @@ Commands
     This command supports ranges.
 
 
+``:SwapComparison``
+
+    Swaps the source and target of a Python comparison statement under cursor,
+    e.g. ::
+
+        assert self.old_path == sys.path
+
+    after ``:SwapComparison`` this becomes ::
+
+        assert sys.path == self.old_path
+
+    This command supports ranges.
+
+
 ``:SwapTupleMembers``
 
     Swaps the first and second members of a Python 2-tuple literal under
@@ -110,6 +124,7 @@ Commands
             @property
             def color(self) -> str:
                 ...
+
 
 ``:FixAssertions[!]``
 

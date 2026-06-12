@@ -207,6 +207,23 @@ Expect python (the assignments to be inverted):
 
 
 #
+# :SwapComparison
+#
+
+Given python (a Python assert statement):
+  def test_something():
+      assert 42 == my_function(1, 2)
+
+Do (:SwapComparison):
+  /assert\<CR>
+  :SwapComparison\<CR>
+
+Expect python (the order of the operands to be inverted):
+  def test_something():
+      assert my_function(1, 2) == 42
+
+
+#
 # :SwapTupleMembers
 #
 
@@ -275,6 +292,7 @@ Expect python (the two attributes to be replaced with properties):
         def color(self) -> str:
             ...
         size: int
+
 
 #
 # :FixTestAsserions
